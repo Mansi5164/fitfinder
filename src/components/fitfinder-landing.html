@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FitFinder — Discover scholarships, hackathons & more</title>
+  <meta name="description" content="FitFinder — find scholarships, research programs, hackathons and more based on your profile.">
+  <style>
+    /* Simple modern responsive styles */
+    :root{
+      --bg:#081226;
+      --card:#0f1724;
+      --muted:#9aa4b2;
+      --accent:#5eead4;
+      --accent-2:#60a5fa;
+      --glass: rgba(255,255,255,0.03);
+      --white: #eaf2ff;
+      --radius:14px;
+      --maxw:1100px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#031025 0%, #07112a 100%);
+      color:var(--white);
+      line-height:1.45;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:28px;
+    }
+
+    .container{
+      width:100%;
+      max-width:var(--maxw);
+      margin:0 auto;
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:28px;
+    }
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .logo{
+      width:48px;height:48px;border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;color:#022; font-weight:800;
+      font-size:18px;
+    }
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;font-size:14px;padding:8px;border-radius:8px}
+    nav a.cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#022;font-weight:700}
+    .hamburger{display:none;border:0;background:transparent;color:var(--muted);font-size:20px}
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:center;
+      margin-bottom:28px;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow: 0 8px 40px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    h1{margin:0 0 8px;font-size:28px;line-height:1.05}
+    p.lead{margin:0 0 18px;color:var(--muted);font-size:15px}
+
+    .search{
+      display:flex;gap:8px;margin-bottom:12px;
+    }
+    .search input{
+      flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);
+      background:transparent;color:var(--white);outline:none;
+    }
+    .btn{
+      padding:11px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700;
+    }
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#052;min-width:120px}
+    .btn-ghost{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.03)}
+
+    /* cards list */
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(1,1fr);
+      gap:12px;
+    }
+    .opp{
+      padding:14px;border-radius:12px;background:var(--glass);border:1px solid rgba(255,255,255,0.02);
+      display:flex;justify-content:space-between;gap:12px;align-items:center;
+    }
+    .opp .meta{color:var(--muted);font-size:13px}
+    .tag{background:rgba(255,255,255,0.04);padding:6px 8px;border-radius:8px;font-weight:700;font-size:12px;color:var(--white)}
+    .fit{font-weight:800;color:var(--accent)}
+
+    /* info columns */
+    .info-grid{
+      display:grid;
+      grid-template-columns: 1fr 320px;
+      gap:18px;margin-top:18px;
+    }
+
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.03);
+    }
+    .stack ul{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+    .stack li{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;color:var(--muted);font-size:13px}
+
+    .howto ol{margin:12px 0 0;padding-left:18px;color:var(--muted)}
+    .mentors{display:flex;gap:8px;flex-wrap:wrap}
+    .mentor{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:8px;font-size:13px;color:var(--muted)}
+
+    footer{margin-top:28px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
+
+    /* responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .info-grid{grid-template-columns:1fr}
+      nav{display:none}
+      .hamburger{display:block}
+    }
+    @media (max-width:520px){
+      h1{font-size:22px}
+      .logo{width:42px;height:42px}
+    }
+
+    /* small badges */
+    .small-badge{display:inline-block;padding:6px 8px;border-radius:8px;font-size:12px;background:rgba(0,0,0,0.25);color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">FF</div>
+        <div>
+          <div style="font-weight:700">FitFinder</div>
+          <div style="font-size:12px;color:var(--muted)">Discover non-job opportunities</div>
+        </div>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <a href="#opportunities">Opportunities</a>
+        <a href="#howto">Contribute</a>
+        <a href="#tech">Tech</a>
+        <a href="#mentors">Mentors</a>
+        <a class="cta" href="#getstarted">Get Started</a>
+      </nav>
+
+      <button class="hamburger" id="hamb">☰</button>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-card">
+        <h1>Find scholarships, hackathons, research programs & more — matched to your profile</h1>
+        <p class="lead">Create a FitProfile and see your fit-score for curated global opportunities. Save, track, and read success stories from people who've been selected.</p>
+
+        <div class="search" role="search" aria-label="Search opportunities">
+          <input id="q" placeholder="Search opportunities, keywords or location (e.g. scholarship, hackathon, remote)" />
+          <button id="searchBtn" class="btn btn-primary">Search</button>
+          <button id="filterBtn" class="btn btn-ghost">Filters</button>
+        </div>
+
+        <div style="display:flex;gap:10px;align-items:center">
+          <div class="small-badge">AI-assisted suggestions</div>
+          <div class="small-badge">Community tips & stories</div>
+          <div style="flex:1"></div>
+          <button class="btn btn-primary" onclick="location.hash='getstarted'">Create FitProfile</button>
+        </div>
+
+        <div style="margin-top:16px;color:var(--muted);font-size:13px">
+          <strong>Tip:</strong> Link your LinkedIn in FitProfile to get more accurate match suggestions.
+        </div>
+      </div>
+
+      <aside>
+        <div class="panel">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:700">Top Matches</div>
+            <div style="font-size:13px;color:var(--muted)">Updated just now</div>
+          </div>
+
+          <div class="cards" id="results" style="margin-top:12px">
+            <!-- Example opportunity cards -->
+            <div class="opp">
+              <div>
+                <div style="font-weight:800">Global Research Internship</div>
+                <div class="meta">University Lab • Remote • Deadline: Sep 30</div>
+              </div>
+              <div style="text-align:right">
+                <div class="fit">78%</div>
+                <div style="margin-top:6px"><span class="tag">Scholarship</span></div>
+              </div>
+            </div>
+
+            <div class="opp">
+              <div>
+                <div style="font-weight:800">Open Hackathon — HealthTech</div>
+                <div class="meta">Online • Prize • Deadline: Oct 12</div>
+              </div>
+              <div style="text-align:right">
+                <div class="fit">64%</div>
+                <div style="margin-top:6px"><span class="tag">Hackathon</span></div>
+              </div>
+            </div>
+
+            <div class="opp">
+              <div>
+                <div style="font-weight:800">Summer Apprenticeship — Dev</div>
+                <div class="meta">Company X • Onsite • Deadline: Nov 20</div>
+              </div>
+              <div style="text-align:right">
+                <div class="fit">52%</div>
+                <div style="margin-top:6px"><span class="tag">Apprenticeship</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;text-align:center">
+            <button class="btn btn-ghost" onclick="alert('Open opportunities list (demo)')">View all opportunities</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Info / Tech / How-to -->
+    <section class="info-grid">
+      <div>
+        <div class="panel">
+          <h3 style="margin:0 0 8px">What you can do</h3>
+          <p class="lead" style="margin-bottom:12px;color:var(--muted)">Discover, bookmark, submit and read success stories. See your fit % for each opportunity once you complete your FitProfile.</p>
+
+          <ul style="margin:0;padding-left:18px;color:var(--muted)">
+            <li>🎓 Scholarships</li>
+            <li>🧑‍💻 Hackathons & Competitions</li>
+            <li>🧑‍🔬 Research & Internships</li>
+            <li>🌎 Conferences & Travel Grants</li>
+          </ul>
+        </div>
+
+        <div class="panel" style="margin-top:12px">
+          <h3 style="margin:0 0 8px">Contribution & points (example)</h3>
+          <p class="meta" style="color:var(--muted);font-size:13px;margin-bottom:8px">Community contributions are rewarded by maintainers. Example:</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div class="mentor">Submit opportunity</div>
+            <div class="mentor">Success story</div>
+            <div class="mentor">Moderation help</div>
+          </div>
+        </div>
+      </div>
+
+      <aside>
+        <div class="panel stack">
+          <h4 style="margin:0 0 8px">Tech stack (MVP)</h4>
+          <ul>
+            <li>React.js</li>
+            <li>TailwindCSS</li>
+            <li>Node.js / Express / Firebase</li>
+            <li>MongoDB / Firebase DB</li>
+            <li>Firebase Auth (Google)</li>
+            <li>Vercel / Render / Firebase Hosting</li>
+          </ul>
+        </div>
+
+        <div class="panel howto" id="howto" style="margin-top:12px">
+          <h4 style="margin:0 0 8px">How to contribute</h4>
+          <ol>
+            <li>Fork the repo → create a branch (feature/your-feature)</li>
+            <li>Implement & test locally → commit</li>
+            <li>Open a PR with a clear description</li>
+            <li>Add labels if asked (good first issue, wocs, level x)</li>
+            <li>Respond to reviews and update PR</li>
+          </ol>
+          <div style="margin-top:10px">
+            <button class="btn btn-primary" onclick="location.hash='getstarted'">Get started on GitHub</button>
+          </div>
+        </div>
+
+        <div class="panel" id="mentors" style="margin-top:12px">
+          <h4 style="margin:0 0 8px">Project mentors</h4>
+          <div class="mentors">
+            <div class="mentor">arushi2610</div>
+            <div class="mentor">Rizwan102003</div>
+            <div class="mentor">Open to more mentors</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Get Started / CTA -->
+    <section id="getstarted" style="margin-top:18px">
+      <div class="panel" style="display:flex;gap:18px;align-items:center;justify-content:space-between">
+        <div>
+          <h3 style="margin:0 0 6px">Ready to discover opportunities that fit you?</h3>
+          <p style="margin:0;color:var(--muted);font-size:14px">Create your FitProfile, link LinkedIn, and start saving opportunities today.</p>
+        </div>
+
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-primary" onclick="alert('Signup flow demo')">Create FitProfile</button>
+          <button class="btn btn-ghost" onclick="alert('Open Submit Opportunity form (demo)')">Submit an opportunity</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© FitFinder — community opportunities</div>
+      <div style="display:flex;gap:12px">
+        <a href="#" style="color:var(--muted);text-decoration:none">Discord</a>
+        <a href="#" style="color:var(--muted);text-decoration:none">Instagram</a>
+        <a href="#" style="color:var(--muted);text-decoration:none">GitHub</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Minimal interactivity for demo
+    const hamb = document.getElementById('hamb');
+    hamb.addEventListener('click', () => {
+      const nav = document.querySelector('nav');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      const q = document.getElementById('q').value.trim().toLowerCase();
+      if(!q) { alert('Try searching for "scholarship" or "hackathon"'); return; }
+      // demo: filter cards by title text
+      const cards = document.querySelectorAll('#results .opp');
+      cards.forEach(card => {
+        const title = card.querySelector('div > div').innerText.toLowerCase();
+        card.style.display = title.includes(q) ? 'flex' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
